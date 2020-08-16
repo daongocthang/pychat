@@ -38,7 +38,10 @@ class Receive(threading.Thread):
         while True:
             try:
                 msg = self.sock.recv(1024).decode('ascii')
-                print('\r[{}] {}\n>>'.format(time.strftime('%H:%M:%S'), msg), end='')
+                if msg:
+                    print('\r[{}] {}\n>>'.format(time.strftime('%H:%M:%S'), msg), end='')
+                else:
+                    raise Exception()
 
             except:
                 backspace = '\b' * 2

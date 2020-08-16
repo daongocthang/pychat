@@ -16,8 +16,11 @@ class ClientThread(threading.Thread):
         while True:
             try:
                 msg = self.sc.recv(1024).decode('ascii')
-                print('[{}]{}'.format(time.strftime('%H:%M:%S'), msg))
-                self.server.broadcast(msg, self.sockname)
+                if msg:
+                    print('[{}]{}'.format(time.strftime('%H:%M:%S'), msg))
+                    self.server.broadcast(msg, self.sockname)
+                else:
+                    raise Exception()
 
             except:
                 print('[!] {} has closed the connection'.format(self.sockname[0]))
